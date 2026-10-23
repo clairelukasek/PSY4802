@@ -18,12 +18,14 @@ library(tidyverse)
 data.frame("billboard")
 view(billboard)
 ```
+AW comment: data() is the function to open specific datasets, View() should have a capital V
 
 3. Describe the dataset. 
 ```{r}
 library(psych)
 describe(billboard)
 ```
+no explanation of outside code 
 
 4. Print the column names from this dataset. 
 ```{r}
@@ -66,12 +68,14 @@ britneySongs <- function(artist){
 }
 
 ```
+adding billboard$artist removes the ability to use the function more generally. if you had artist=="Spears,Britney" you could use it on other datasets
 
 
 5. Test your function on the billboard data. Save the results to a new column called "wasItBritney"
 ```{r}
 wasItBritney <- billboard$britneySongs
 ```
+britneySongs isn't a column in the billboard dataset. when you make a function you'd use it like britneySongs(billboard$artist)
 
 6. Use a for loop to determine if a song placed 50 or below or placed above 50 during the first week.
 ```{r}
@@ -80,16 +84,22 @@ for(i in 1:nrow(billboard)){
 (billboard$wk1Ranks[billboard$wk1][i]<50) | (billboard$wk1Ranks[billboard$wk1][i]>50)
 }
 ```
+AW comment: while this runs, it does not fill in the column. to do this, you'd need to assign it. consider something like below: 
+billboard$week1Ranks<- NA
+for(i in 1:nrow(billboard){
+billboard$wk1Ranks[i]<- billboard$week1[i]<50}
 
+your version doesn't assign the result to the column and the or statement means that either could be true 
 
 7. Use an if else statement to determine the same information as you obtained with the for loop. 
 ```{r}
 billboard$wk1Rankings <- NA
 ifelse(billboard$wk1>50, billboard$wk1<50, "yes")
 ```
+AW comment: in this case, your ifelse statement is checking if it's greater than 50, then printing FALSE (result of a number that's greater than 50 being less than 50) and then "yes" if it's not true 
 
 8. Compare your results in 6 and 7. 
 ```{r}
 billboard$wk1Ranks == billboard$wk1Rankings
 ```
-
+what does this show you? 
