@@ -1,0 +1,84 @@
+---
+title: "Dataset Manipulation Assignment"
+author: "Claire Lukasek"
+date: "2026-10-07"
+output: html_document
+---
+
+#Part 1
+1.Open the sleep dataset in R 
+```{r}
+View(sleep)
+```
+
+2. Is it long or wide format? How do you know? 
+```{r}
+#It is in long format because thee are 3 columns across and 20 rows down. Therefore the majority of the data length is going down.
+```
+
+3. Transform this data so that it is in the other format. 
+```{r}
+library(tidyverse)
+sleepDataWide <- sleep |> pivot_wider(id_cols = c("group"), names_from = "ID",values_from = "extra")
+```
+
+4. Transform your data back to its original format. 
+```{r}
+sleepDataLong <- pivot_longer(sleepDataWide, cols = (2:11), names_to = "ID", values_to = "extra")
+```
+
+5. Open the Starwars dataset
+```{r}
+View(starwars)
+```
+
+6. Create homeworld as a factor. How many levels does it have? 
+```{r}
+starwarsHomeworld <- as.factor(starwars$homeworld)
+levels(starwarsHomeworld)
+#48 levels
+```
+
+7. Reorder homeworld so that Naboo is the reference group. 
+```{r}
+starwarsHomeworld <- relevel(starwarsHomeworld, ref = "Naboo")
+```
+
+8. Use mutate to create a column transforming kg to pounds. (hint: you may need to look up the conversion)
+```{r}
+starwarsPounds <- starwars %>% mutate(massLbs = mass * 2.20462262)
+```
+
+9. Print a summary of your column from #8
+```{r}
+summary(starwarsPounds$massLbs)
+```
+
+
+#Part 2
+10. open the billboard dataset.
+```{r}
+View(billboard)
+```
+
+11. are the data in this dataframe in long or wide format? explain how you know. 
+```{r}
+#This data is in wide format because there are 79 columns across and 317 rows down
+```
+
+12. change the data from its original format to the other version. 
+```{r}
+billboardLong <- billboard |> pivot_longer(cols= colnames(billboard)[4:79], names_to= "week", values_to="rank", values_drop_na = TRUE) 
+
+```
+
+13. change it from your altered version in #3 back to its original state. 
+```{r}
+billboardWide <- billboardLong |> pivot_wider(id_cols = c("artist", "track", "date.entered"), names_from = "week", values_from = "rank")
+```
+
+14. Separate the date entered column into three columns: one for year, one for month, and one for day. 
+```{r}
+billboardWide |> separate(date.entered, into= c("year", "month", "day"), sep= "-")
+```
+
