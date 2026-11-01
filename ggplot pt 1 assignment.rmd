@@ -1,0 +1,54 @@
+---
+title: "ggplot pt 1 assignment"
+author: "Claire Lukasek"
+date: "2026-10-29"
+output: html_document
+---
+1. open the starwars dataset in tidyverse
+```{r}
+library(tidyverse)
+data(starwars)
+```
+
+2. create a graph showing the frequency of eye colors in the dataset. 
+```{r}
+ggplot(starwars, aes(eye_color)) + geom_bar()
+
+```
+
+3. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(eye_color)) + geom_bar(fill= "lightblue", color="black") + theme_classic() + xlab("Eye Color") + ylab("Frequency") + ggtitle("Starwars Eye Colors")
+```
+
+4. Create a graph displaying information about character's height in each homeworld. 
+```{r}
+ggplot(starwars, aes(height, homeworld)) + geom_point()
+```
+
+5. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(homeworld, height)) + geom_point(shape=1, color="plum") + theme_bw() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) + xlab("Homeworld") +  ylab("Height (cm)") + ggtitle("Height by Homeworld")
+
+#I looked up R code for how to change the orientation of variables on the x-axis, because before they were all overlapping with one another, making the variables unreadable. Google gave me the code: theme(axis.text.x = element_text(angle = #, vjust = 0.5, hjust = 1)). I first tried with angle = 45, then tries angle = 90 and I liked that better.
+```
+
+6. Create a graph of character's height by mass. 
+```{r}
+ggplot(starwars, aes(mass, height)) + geom_violin()
+```
+
+7.Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(mass, height)) + geom_boxplot(color="black", fill="seagreen4") + theme_classic() + xlab("Mass (kg)") + ylab("Height (cm)") + ggtitle("Character Height by Mass")
+``` 
+
+8. Add gender as a third variable to your graph of height by mass. 
+```{r}
+ggplot(starwars, aes(x=mass, y=height, fill=gender)) + geom_boxplot()
+```
+
+9. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(x=mass, y=height, fill=gender)) + geom_boxplot() + theme_classic() + scale_fill_manual(values=c("masculine"="cadetblue", "feminine"="pink")) + xlab("Mass (kg)") + ylab("Height (cm)") + ggtitle("Character Height and Mass by Gender") + theme(legend.position="top")
+```
