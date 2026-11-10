@@ -1,0 +1,52 @@
+---
+title: "Quiz 2"
+author: "Claire Lukasek"
+date: "2026-11-03"
+output: html_document
+---
+
+
+This quiz will focus on data frame manipulation, however, you may need to rely on skills you've learned in prior weeks. 
+
+1. load the starwars dataset from tidyverse
+```{r}
+library(tidyverse)
+data(starwars)
+```
+
+2. separate the films column so that there is one film in each column (don't worry about the "c(" and ) at the end for now)
+```{r}
+starwars |> separate(col=films, into=c("film1", "film2", "film3","film4", "film5", "film6", "film7"), sep = ", ")
+```
+
+
+3. alter the data from wide data to long data
+```{r}
+starwarsLong <- starwarsFilms |> pivot_longer(cols = c("film1", "film2", "film3", "film4", "film5", "film6", "film7"), names_to = "films", values_to = "filmNames")
+```
+
+
+4. in the column where you stored the films, rename the levels so each film name is consistent (e.g. get rid of the "c(" and ")" )
+```{r}
+colnames(starwars)[12:19] <- c("A New Hope", )
+```
+
+
+5. Create a column in your dataset that indicates whether a character was in the first starwars film, *Star Wars Episode IV: A New Hope* 
+```{r}
+library(dplyr)
+starwars <- starwars %>% mutate(first_film = ifelse(films == "A New Hope", TRUE, FALSE))
+```
+
+
+6. BMI is calculated as mass in Kg/height in meters squared. You currently have mass in Kg and height in cm. Create a column that contains each character's BMI. 
+```{r}
+starwars <- starwars %>% mutate(bmi = mass / (height_meters = height * 0.01))
+```
+
+
+7. create a dataframe that contains only the name, hair color, and eye color for each character. 
+```{r}
+starwarsPhysicalAppearance <- starwars |> select(name, hair_color, eye_color)
+```
+
