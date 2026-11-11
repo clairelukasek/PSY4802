@@ -25,6 +25,7 @@ ggplot(starwars, aes(eye_color)) + geom_bar(fill= "lightblue", color="black") + 
 ```{r}
 ggplot(starwars, aes(height, homeworld)) + geom_point()
 ```
+AW comment: i'd recommend a different type of graph (boxplot for instance) because you have a categorical variable
 
 5. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
 ```{r}
@@ -37,6 +38,7 @@ ggplot(starwars, aes(homeworld, height)) + geom_point(shape=1, color="plum") + t
 ```{r}
 ggplot(starwars, aes(mass, height)) + geom_violin()
 ```
+AW comment: i'd recommend a scatterplot when you have two continuous variables
 
 7.Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
 ```{r}
