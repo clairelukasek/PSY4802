@@ -4,7 +4,7 @@ author: "Claire Lukasek"
 date: "2026-11-03"
 output: html_document
 ---
-
+remember to open the tidyverse library
 1. Open the starwars dataset (located in tidyverse)
 ```{r}
 data(starwars)
